@@ -54,6 +54,17 @@ function filtirirajVulgarneBesede(vhod) {
 
 $(document).ready(function() {
   var klepetApp = new Klepet(socket);
+  
+  $('#vsebina').jrumble();
+  
+  socket.on('dregljaj', function(rezultat) {
+     if(rezultat.dregljaj) {
+       $('#vsebina').trigger('startRumble');
+       setTimeout(function() {
+         $('#vsebina').trigger('stopRumble');
+       }, 1500);
+     } 
+  });
 
   socket.on('vzdevekSpremembaOdgovor', function(rezultat) {
     var sporocilo;
@@ -130,4 +141,6 @@ function dodajSmeske(vhodnoBesedilo) {
       preslikovalnaTabela[smesko] + "' />");
   }
   return vhodnoBesedilo;
-}
+};
+
+
